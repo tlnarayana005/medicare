@@ -259,6 +259,10 @@ def predict():
         # Find symptoms mentioned in the input paragraph (ignoring case)
         found_symptoms = [symptom for symptom in symptoms if re.search(r'\b{}\b'.format(re.escape(symptom)), paragraph.lower())]
 
+        if not found_symptoms:
+            flash("Sorry, we couldn't recognize any specific symptoms in your input. Please try describing them differently (e.g., 'headache', 'fever', 'cough').", category='warning')
+            return redirect(url_for('users.data'))
+
         # Create the symptom vector (1 if found, 0 if not)
         symptom_vector = [1 if symptom in found_symptoms else 0 for symptom in symptoms]
         symptom_vector = np.array(symptom_vector).reshape(1, -1)
