@@ -260,8 +260,7 @@ def predict():
         found_symptoms = [symptom for symptom in symptoms if re.search(r'\b{}\b'.format(re.escape(symptom)), paragraph.lower())]
 
         if not found_symptoms:
-            flash("Sorry, we couldn't recognize any specific symptoms in your input. Please try describing them differently (e.g., 'headache', 'fever', 'cough').", category='warning')
-            return redirect(url_for('users.data'))
+            return '<div class="alert alert-warning text-center" style="font-size: 1.2rem; font-weight: bold; background-color: rgba(255, 193, 7, 0.8);">Sorry, we couldn\'t recognize any specific symptoms in your input. Please check your spelling or use simple terms like "headache", "fever", or "cough".</div>'
 
         # Create the symptom vector (1 if found, 0 if not)
         symptom_vector = [1 if symptom in found_symptoms else 0 for symptom in symptoms]
