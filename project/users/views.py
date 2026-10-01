@@ -13,6 +13,7 @@ import joblib as jb
 import math
 import os
 from project.users.map import fetch_for_app
+from project.users.analytics import generate_all_charts
 
 
 
@@ -290,3 +291,7 @@ def predict():
     return render_template('prediction.html', disease_name=disease_name, description=description, medicine=medicine, diet=diet, descriptions=descriptions)
 
 
+@users.route('/analytics')
+def analytics():
+    charts, stats = generate_all_charts()
+    return render_template('analytics.html', charts=charts, stats=stats)

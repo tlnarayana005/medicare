@@ -1,0 +1,161 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    .analytics-container {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 20px 10px;
+    }
+    .analytics-header {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+    .analytics-header h1 {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #2c3e50;
+        margin-bottom: 10px;
+    }
+    .analytics-header p {
+        color: #7f8c8d;
+        font-size: 1.1rem;
+    }
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 15px;
+        margin-bottom: 30px;
+    }
+    .stat-card {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 12px;
+        padding: 20px;
+        text-align: center;
+        color: white;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        transition: transform 0.2s;
+    }
+    .stat-card:hover {
+        transform: translateY(-3px);
+    }
+    .stat-card:nth-child(2) { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+    .stat-card:nth-child(3) { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+    .stat-card:nth-child(4) { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
+    .stat-number {
+        font-size: 2.2rem;
+        font-weight: bold;
+        display: block;
+    }
+    .stat-label {
+        font-size: 0.9rem;
+        opacity: 0.9;
+        margin-top: 5px;
+    }
+    .chart-card {
+        background: white;
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 25px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        border: 1px solid #e8e8e8;
+    }
+    .chart-card h3 {
+        font-size: 1.2rem;
+        color: #2c3e50;
+        margin-bottom: 15px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #3498db;
+    }
+    .chart-card img {
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+    }
+    .chart-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
+        gap: 20px;
+    }
+    .tech-badge {
+        display: inline-block;
+        background: #ecf0f1;
+        color: #2c3e50;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        margin: 2px;
+        font-weight: 500;
+    }
+    .tech-section {
+        text-align: center;
+        margin-bottom: 25px;
+    }
+</style>
+
+<div class="analytics-container">
+    <div class="analytics-header">
+        <h1>📊 Dataset Analytics & Model Evaluation</h1>
+        <p>Exploratory Data Analysis of the Medical Symptoms Dataset</p>
+        <div class="tech-section">
+            <span class="tech-badge">Python</span>
+            <span class="tech-badge">Pandas</span>
+            <span class="tech-badge">NumPy</span>
+            <span class="tech-badge">Matplotlib</span>
+            <span class="tech-badge">Seaborn</span>
+            <span class="tech-badge">Scikit-learn</span>
+        </div>
+    </div>
+
+    <div class="stats-grid">
+        <div class="stat-card">
+            <span class="stat-number">{{ stats.total_diseases }}</span>
+            <span class="stat-label">Diseases Classified</span>
+        </div>
+        <div class="stat-card">
+            <span class="stat-number">{{ stats.total_symptoms }}</span>
+            <span class="stat-label">Symptom Features</span>
+        </div>
+        <div class="stat-card">
+            <span class="stat-number">{{ stats.total_samples }}</span>
+            <span class="stat-label">Training Samples</span>
+        </div>
+        <div class="stat-card">
+            <span class="stat-number">{{ stats.best_accuracy }}</span>
+            <span class="stat-label">Best Model Accuracy</span>
+        </div>
+    </div>
+
+    <div class="chart-card">
+        <h3>📈 Model Accuracy Comparison — 5 ML Algorithms</h3>
+        <img src="data:image/png;base64,{{ charts.model_comparison }}" alt="Model Comparison">
+    </div>
+
+    <div class="chart-grid">
+        <div class="chart-card">
+            <h3>🏥 Disease Distribution in Dataset</h3>
+            <img src="data:image/png;base64,{{ charts.disease_distribution }}" alt="Disease Distribution">
+        </div>
+        <div class="chart-card">
+            <h3>🔬 Top 20 Most Important Features</h3>
+            <img src="data:image/png;base64,{{ charts.feature_importance }}" alt="Feature Importance">
+        </div>
+    </div>
+
+    <div class="chart-grid">
+        <div class="chart-card">
+            <h3>🩺 Top 20 Most Frequent Symptoms</h3>
+            <img src="data:image/png;base64,{{ charts.top_symptoms }}" alt="Top Symptoms">
+        </div>
+        <div class="chart-card">
+            <h3>📊 Average Symptoms per Disease</h3>
+            <img src="data:image/png;base64,{{ charts.symptoms_per_disease }}" alt="Symptoms per Disease">
+        </div>
+    </div>
+
+    <div class="chart-card">
+        <h3>🔥 Symptom Correlation Heatmap (Top 15)</h3>
+        <img src="data:image/png;base64,{{ charts.correlation_heatmap }}" alt="Correlation Heatmap">
+    </div>
+</div>
+{% endblock %}
